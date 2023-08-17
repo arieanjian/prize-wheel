@@ -1,39 +1,48 @@
 {
   "hash": "358f8f5f",
-  "browserHash": "03725827",
+  "browserHash": "517d9cd3",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "746101eb",
+      "fileHash": "8c48e5bc",
       "needsInterop": true
     },
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
-      "fileHash": "2a89a847",
+      "fileHash": "5484556c",
       "needsInterop": true
     },
     "antd": {
       "src": "../../node_modules/antd/es/index.js",
       "file": "antd.js",
-      "fileHash": "e6a8bb71",
+      "fileHash": "635c4e4f",
       "needsInterop": false
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "312c6487",
+      "fileHash": "1ec189b4",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.js",
       "file": "react-router-dom.js",
-      "fileHash": "d663eb0b",
+      "fileHash": "35d0d6da",
+      "needsInterop": false
+    },
+    "@ant-design/icons": {
+      "src": "../../node_modules/@ant-design/icons/es/index.js",
+      "file": "@ant-design_icons.js",
+      "fileHash": "1709ebc7",
       "needsInterop": false
     }
   },
   "chunks": {
+    "chunk-4CM577PA": {
+      "file": "chunk-4CM577PA.js"
+    },
     "chunk-MDIHFEFG": {
       "file": "chunk-MDIHFEFG.js"
     },
