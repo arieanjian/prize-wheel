@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
       px-2 lg:px-4 xl:px-6 2xl:px-8 3xl:px-10
     `}
     >
-      <nav className="overflow-auto flex justify-between divide-x divide-solid">
+      <nav className="navbar overflow-auto flex justify-between divide-x divide-solid">
         {navItems.map((navItem) => (
           <a
             key={navItem}

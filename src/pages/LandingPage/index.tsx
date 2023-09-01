@@ -5,9 +5,10 @@ import {
   Navbar,
   Hero,
   Infos,
-  Slider,
+  Users,
   Prices,
   Footer,
+  // Test,
 } from "@/components/LandingPage";
 
 const LandingPage: React.FC = () => {
@@ -20,8 +21,9 @@ const LandingPage: React.FC = () => {
       <section className="flex-1 overflow-auto shrink-0">
         <Hero />
         <Infos />
-        <Slider />
+        <Users />
         <Prices />
+        {/* <Test /> */}
         <Footer />
       </section>
     </div>
