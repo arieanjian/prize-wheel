@@ -13,7 +13,7 @@ import {
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="flex flex-col h-screen bg-neutral-100 font-Roboto">
+    <div className="flex flex-col bg-neutral-100 font-Roboto">
       <Header />
 
       <Navbar />
@@ -23,7 +23,6 @@ const LandingPage: React.FC = () => {
         <Infos />
         <Users />
         <Prices />
-        {/* <Test /> */}
         <Footer />
       </section>
     </div>
