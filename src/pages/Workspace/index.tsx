@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { Layout } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
+// component
+import Sider from "@/components/Layout/Sider";
+import Content from "@/components/Layout/Content";
+// API
+import { useWsByUserId } from "@/hooks/Workspace";
 
 const Workspace: React.FC = () => {
-  return <div>Workspace</div>;
+  const queryClient = useQueryClient();
+  const [isShowSider, setIsShowSider] = useState(true);
+
+  const user = queryClient.getQueryData(["useAuth"]) as IUser;
+
+  const { data: queryWs } = useWsByUserId({
+    userId: user._id,
+  });
+
+  return (
+    <Layout className="h-[calc(100vh_-_80px)]">
+      <Sider
+        queryWs={queryWs}
+        isShowSider={isShowSider}
+        setIsShowSider={setIsShowSider}
+      />
+      <Content isShowSider={isShowSider} />
+    </Layout>
+  );
 };
 
 export default Workspace;
