@@ -1,7 +1,9 @@
 import {
-  __commonJS,
   require_react
-} from "./chunk-L7APZED3.js";
+} from "./chunk-ZAUFE7H7.js";
+import {
+  __commonJS
+} from "./chunk-UXIASGQL.js";
 
 // node_modules/react-multi-carousel/lib/utils/clones.js
 var require_clones = __commonJS({
