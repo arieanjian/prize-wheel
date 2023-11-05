@@ -14,12 +14,3 @@ interface IUser {
   email: string;
   avatar: string;
 }
-
-interface Iboard {
-  _id: string;
-  boardName: string;
-  owner: string;
-  workspaceId: string;
-  isPinned: boolean;
-  memberIds: string[];
-}

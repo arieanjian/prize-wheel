@@ -1,4 +1,4 @@
 import FloatButton from "./FloatButton";
-import MenuBoard from "./MenuBoard";
+import MenuItem from "./MenuItem";
 
-export { FloatButton, MenuBoard };
+export { FloatButton, MenuItem };

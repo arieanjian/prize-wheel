@@ -52,9 +52,9 @@ const Login: React.FC<Iprops> = ({
       register.mutate(values);
     }
   };
-
+  console.log("login.isPaused = ", login.isPaused);
   return (
-    <Spin spinning={login.isLoading || register.isLoading}>
+    <Spin spinning={login.isPending || register.isPaused}>
       <Form
         layout="vertical"
         name="basic"
