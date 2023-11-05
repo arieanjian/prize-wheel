@@ -1,5 +1,5 @@
-import { message } from "antd";
-import { useQuery } from "@tanstack/react-query";
+import { App } from "antd";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 // API
 import instance from "@/service/instance";
 
@@ -7,39 +7,35 @@ interface Iprops {
   userId?: string;
 }
 
-interface Iresponse extends IapiResponse {
-  data: Iworkspace[];
-}
-
 const useWsByUserId = (props: Iprops) => {
-  const { data: response, ...rest } = useQuery({
-    queryKey: ["useWs", props],
-    keepPreviousData: true,
+  const { message } = App.useApp();
+  const { data, ...rest } = useQuery<Iworkspace[], Error>({
+    queryKey: ["useWsByUserId", props.userId],
+    placeholderData: keepPreviousData,
     enabled: !!props.userId,
     queryFn: async () => {
       const res: IapiResponse = await instance.get("/workspace/getByUserId", {
         params: props,
       });
-      return res;
-    },
-    onSuccess: (res: Iresponse) => {
-      const { status, msg } = res;
-
-      if (status === "error") {
-        message.error(msg);
+      if (!res) {
+        return [];
       }
+      if (res.status === "success") {
+        return res.data as Iworkspace[];
+      }
+
+      if (res.status === "error" || res.status === "fail") {
+        message.error(res.msg);
+        return [];
+      }
+      return [];
     },
   });
 
-  if (!response) {
-    return { ...rest, data: [] };
-  }
-
-  if (response.status === "success") {
-    return { ...rest, data: response.data };
-  }
-
-  return { ...rest, data: [] };
+  return {
+    ...rest,
+    data: data || [],
+  };
 };
 
 export default useWsByUserId;

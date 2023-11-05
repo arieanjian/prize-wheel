@@ -5,25 +5,23 @@ import Star from "../Star";
 type ClickEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
 
 interface Iprops {
-  board: Iboard;
+  kanban: Ikanban;
 }
 
-const MenuBoard: React.FC<Iprops> = (props) => {
-  const { board } = props;
-
+const MenuItem: React.FC<Iprops> = ({ kanban }) => {
   const handelClick = (event: ClickEvent) => {
     event.stopPropagation();
   };
-
+  if (!kanban) return;
   return (
     <div className="flex justify-between pr-1">
-      <span>{board.boardName}</span>
+      <span>{kanban.name}</span>
       <Star
-        isFill={board.isPinned}
+        isFill={kanban.isPinned}
         onClick={(e: ClickEvent) => handelClick(e)}
       />
     </div>
   );
 };
 
-export default MenuBoard;
+export default MenuItem;

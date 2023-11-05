@@ -1,7 +1,10 @@
 interface Iworkspace {
   _id: string;
   name: string;
-  boardIds: string;
+  ownerId: string;
+  userIds: string[];
+  kanbanIds: string[];
+  memberIds: string[];
 }
 
 interface IaddWorkspace {

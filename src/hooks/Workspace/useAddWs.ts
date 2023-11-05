@@ -1,9 +1,15 @@
-import { message } from "antd";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { App } from "antd";
 // API
 import instance from "@/service/instance";
 
-const useAddWs = () => {
+interface Iprops {
+  onSuccess: () => void;
+}
+
+const useAddWs = ({ onSuccess }: Iprops) => {
+  const queryClient = useQueryClient();
+  const { message } = App.useApp();
   return useMutation({
     mutationFn: async (mutation_data: IaddWorkspace) => {
       const res: IapiResponse = await instance.post(
@@ -19,17 +25,10 @@ const useAddWs = () => {
 
       message.error(msg);
     },
-    // onSuccess: async (res) => {
-    //   if (!res) return;
-    //   const { userInfo, token } = res as IauthResponse;
-    //   // set cookie
-    //   Cookies.set("cardify-token", token);
-    //   // set useAuth 的 data
-    //   queryClient.setQueryData(["useAuth"], userInfo);
-    //   // 導轉到 workspace
-    //   navigate("/workspace");
-    //   onSuccess();
-    // },
+    onSuccess: async () => {
+      queryClient.refetchQueries({ queryKey: ["useWsByUserId"] });
+      onSuccess();
+    },
   });
 };
 

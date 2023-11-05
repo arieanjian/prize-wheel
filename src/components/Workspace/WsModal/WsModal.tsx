@@ -41,7 +41,9 @@ const WsModal: React.FC<Iprops> = ({ wsData, closeWsModal }) => {
   const { data: quertMembers } = useMembers({
     workspaceId: wsData._id,
   });
-  const addWs_mutation = useAddWs();
+  const addWs_mutation = useAddWs({
+    onSuccess: closeWsModal,
+  });
 
   // 新增 member
   const addMember = (_: string, option: Ioption | Ioption[]) => {
@@ -91,11 +93,15 @@ const WsModal: React.FC<Iprops> = ({ wsData, closeWsModal }) => {
     setUserName(newValue);
   }, 1000);
 
+  console.log(userName);
+
   useEffect(() => {
     if (quertMembers.length > 0) {
       setMembers(quertMembers);
     }
   }, [quertMembers]);
+
+  console.log("queryUsers = ", queryUsers);
 
   return (
     <section className="border-solid border-0 border-t border-[#F5F5F5]">
