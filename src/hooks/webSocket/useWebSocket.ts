@@ -7,7 +7,7 @@ interface IProps {
   queryParams?: IQueryParams; // 連線時的 query params
 }
 // 傳遞給後端的 query params 資料型態 (key-value pair)
-type IQueryParams = { [key: string]: string | number | boolean };
+export type IQueryParams = { [key: string]: string | number | boolean };
 
 // 聲明 useWebSocket 的返回值類型(方便寫 unit test)
 export interface WebSocketState {

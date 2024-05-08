@@ -14,44 +14,21 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Card } from "@/components/Card";
 // component
 import List from "./List";
-import { useWebSocket } from "@/hooks/webSocket";
+import { useWebSocket, IQueryParams } from "@/hooks/webSocket";
 
-type IParams = { [key: string]: number | string | boolean };
+interface IParams extends IQueryParams { kanbanId: string };
 
-const ListGroup: React.FC = () => {
-  const [status, setStatus] = useState<IParams>({ test: "456" });
+interface Iprops {
+  kanbanId: string;
+}
 
-  const call_socket = useWebSocket({
-    url: "ws://localhost:8080/foo",
-    queryParams: status,
-  });
-
-  useEffect(() => {
-    call_socket.createSocket();
-    // call_socket.data =
-  }, []);
-
-  return (
-    <div>
-      <button
-        onClick={() => {
-          // alert("send");
-          setStatus({ test: "123" });
-        }}
-        className="bg-red-300 w-[300px] h-[200px]"
-      >
-        SEND
-      </button>
-    </div>
-  );
-};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ListGroup1: React.FC = () => {
-  const [columns, setColumns] = useState<Column[]>([]);
+const ListGroup: React.FC<Iprops> = ({kanbanId}) => {
+  const [lists, setLists] = useState<Ilist[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const [activeColumn, setActiveColumn] = useState<Column | null>(null);
+  const [activeList, setActiveList] = useState<Ilist | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
 
   const pointerSensor = useSensor(PointerSensor, {
@@ -61,23 +38,84 @@ const ListGroup1: React.FC = () => {
     },
   });
 
+  const [socketProps, setSocketProps] = useState<IParams>({ kanbanId: kanbanId });
+
+  const call_kanbanSocket = useWebSocket({
+    url: `ws://localhost:8080/kanban`,
+    queryParams: socketProps,
+  });
+
+  useEffect(() => {
+    call_kanbanSocket.createSocket();
+    // call_socket.data =
+    // TODO: socket 回傳以下格式
+    /*
+      {
+        lists:[
+          {
+            id: 1,
+            kanbanId: 1,
+            title: "List 1",
+            order: 1,
+          },
+          {
+            id: 2,
+            kanbanId: 1,
+            title: "List 2",
+            order: 2,
+          },
+          {
+            id: 3,
+            kanbanId: 1,
+            title: "List 3",
+            order: 3,
+          },
+          }
+        ]
+        cards: [
+          {
+            id: 1,
+            title: "Card 1",
+            order: 1,
+            listId: 1,
+          },
+          {
+            id: 2,
+            title: "Card 2",
+            order: 2,
+            listId: 1,
+          },
+          {
+            id: 3,
+            title: "Card 3",
+            order: 3,
+            listId: 2,
+          }
+        ]
+      }
+    */
+   // TODO: 前端自己把 cards 跟 lists 關聯起來
+  }, []);
+
   const sensors = useSensors(pointerSensor);
 
-  const columnIds = useMemo(() => {
-    return columns.map((column) => column.id);
-  }, [columns]);
+  const listIds = useMemo(() => {
+    return lists.map((list) => list.order);
+  }, [lists]);
 
-  const cereateNewColumn = () => {
-    const columnToAdd: Column = {
-      id: generateId(),
-      title: `Column ${columns.length + 1}`,
+  const createNewList = () => {
+    const listToAdd: Ilist = {
+      _id: generateId().toString(),
+      name: `List ${lists.length + 1}`,
+      order: lists.length + 1,
+      kanbanId: kanbanId,
     };
-    setColumns([...columns, columnToAdd]);
+    setLists([...lists, listToAdd]);
   };
 
   const onDragStart = (event: DragStartEvent) => {
-    if (event.active.data.current?.type === "Column") {
-      setActiveColumn(event.active.data.current.column);
+    if (event.active.data.current?.type === "List") {
+      setActiveList(event.active.data.current.list);
       return;
     }
     if (event.active.data.current?.type === "Card") {
@@ -88,7 +126,7 @@ const ListGroup1: React.FC = () => {
 
   const onDragEnd = (event: DragEndEvent) => {
     console.log("DragEndEvent = ", event);
-    setActiveColumn(null);
+    setActiveList(null);
     setActiveTask(null);
 
     const {
@@ -108,11 +146,11 @@ const ListGroup1: React.FC = () => {
     const overType = over.data.current?.type || "";
 
     if (active.id === over.id) return;
-    // 拖曳 Column
-    if (activeType === "Column" && overType === "Column") {
-      const activeIndex = columns.findIndex((col) => col.id === active.id);
-      const overIndex = columns.findIndex((col) => col.id === over.id);
-      setColumns(arrayMove(columns, activeIndex, overIndex));
+    // 拖曳 List
+    if (activeType === "List" && overType === "List") {
+      const activeIndex = lists.findIndex((list) => list.order === active.id);
+      const overIndex = lists.findIndex((list) => list.order === over.id);
+      setLists(arrayMove(lists, activeIndex, overIndex));
     }
   };
 
@@ -144,13 +182,13 @@ const ListGroup1: React.FC = () => {
       });
     }
 
-    const isOverAColumn = over.data.current?.type === "Column";
-
+    const isOverAList = over.data.current?.type === "List";
+    console.log('over.data.current?.type = ',over.data.current?.type)
     // Im dropping a Task over a column
-    if (isActiveCard && isOverAColumn) {
+    if (isActiveCard && isOverAList) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
-
+        console.log("aaa activeIndex = ", activeIndex);
         tasks[activeIndex].columnId = overId;
         console.log("DROPPING TASK OVER COLUMN", { activeIndex });
         return arrayMove(tasks, activeIndex, activeIndex);
@@ -166,11 +204,11 @@ const ListGroup1: React.FC = () => {
         onDragOver={onDragOver}
         sensors={sensors}
       >
-        <SortableContext items={columnIds}>
-          {columns.map((column) => (
+        <SortableContext items={listIds}>
+          {lists.map((list) => (
             <List
-              key={column.id}
-              column={column}
+              key={list.order}
+              list={list}
               tasks={tasks}
               setTasks={setTasks}
             />
@@ -178,8 +216,8 @@ const ListGroup1: React.FC = () => {
         </SortableContext>
         <DragOverlay>
           <div className="rotate-[5deg] flex h-full">
-            {activeColumn && (
-              <List column={activeColumn} tasks={tasks} setTasks={setTasks} />
+            {activeList && (
+              <List list={activeList} tasks={tasks} setTasks={setTasks} />
             )}
             {activeTask && <Card task={activeTask} />}
           </div>
@@ -187,8 +225,8 @@ const ListGroup1: React.FC = () => {
       </DndContext>
 
       <button
-        className="h-[60px] w-[350px] rounded-lg cursor-pointer bg-slate-400 border-solid border-2 border-slate-500"
-        onClick={cereateNewColumn}
+        className="h-[60px] w-[350px] shrink-0 rounded-lg cursor-pointer bg-slate-400 border-solid border-2 border-slate-500"
+        onClick={createNewList}
       >
         Addzzz
       </button>
@@ -197,5 +235,7 @@ const ListGroup1: React.FC = () => {
 };
 
 export const generateId = () => Math.floor(Math.random() * 10001);
+
+
 
 export default ListGroup;

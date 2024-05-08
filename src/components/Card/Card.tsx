@@ -45,7 +45,7 @@ const Card: React.FC<IProps> = (props) => {
       {...listeners}
       className="w-full h-[160px] max-h-[245px] bg-white shadow-md rounded-sm"
     >
-      Card
+      {task.content}
     </div>
   );
 };
