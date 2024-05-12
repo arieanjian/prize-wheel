@@ -4,3 +4,8 @@ interface Ilist {
     order: number;
     kanbanId: string;
 }
+
+interface IaddList {
+    name: string;
+    kanbanId: string;
+}

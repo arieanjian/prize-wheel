@@ -14,6 +14,7 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Card } from "@/components/Card";
 // component
 import List from "./List";
+import CreateList from "./CreateList";
 import { useWebSocket, IQueryParams } from "@/hooks/webSocket";
 
 interface IParams extends IQueryParams { kanbanId: string };
@@ -45,73 +46,23 @@ const ListGroup: React.FC<Iprops> = ({kanbanId}) => {
     queryParams: socketProps,
   });
 
+  // 第一次進入頁面時，建立 WebSocket 連線
   useEffect(() => {
     call_kanbanSocket.createSocket();
-    // call_socket.data =
-    // TODO: socket 回傳以下格式
-    /*
-      {
-        lists:[
-          {
-            id: 1,
-            kanbanId: 1,
-            title: "List 1",
-            order: 1,
-          },
-          {
-            id: 2,
-            kanbanId: 1,
-            title: "List 2",
-            order: 2,
-          },
-          {
-            id: 3,
-            kanbanId: 1,
-            title: "List 3",
-            order: 3,
-          },
-          }
-        ]
-        cards: [
-          {
-            id: 1,
-            title: "Card 1",
-            order: 1,
-            listId: 1,
-          },
-          {
-            id: 2,
-            title: "Card 2",
-            order: 2,
-            listId: 1,
-          },
-          {
-            id: 3,
-            title: "Card 3",
-            order: 3,
-            listId: 2,
-          }
-        ]
-      }
-    */
-   // TODO: 前端自己把 cards 跟 lists 關聯起來
+    // return () => {
+    //   call_kanbanSocket.closeSocket();
+    // };
   }, []);
+
+  useEffect(() => {
+    console.log("call_kanbanSocket.lastMessage = ", call_kanbanSocket.lastMessage);
+  }, [call_kanbanSocket.lastMessage]);
 
   const sensors = useSensors(pointerSensor);
 
   const listIds = useMemo(() => {
     return lists.map((list) => list.order);
   }, [lists]);
-
-  const createNewList = () => {
-    const listToAdd: Ilist = {
-      _id: generateId().toString(),
-      name: `List ${lists.length + 1}`,
-      order: lists.length + 1,
-      kanbanId: kanbanId,
-    };
-    setLists([...lists, listToAdd]);
-  };
 
   const onDragStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === "List") {
@@ -197,7 +148,7 @@ const ListGroup: React.FC<Iprops> = ({kanbanId}) => {
   };
 
   return (
-    <section className="flex-1 bg-red-100 flex gap-4 mb-2 min-w-full overflow-auto">
+    <section className="flex-1 flex gap-4 mb-2 min-w-full overflow-auto">
       <DndContext
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
@@ -224,17 +175,10 @@ const ListGroup: React.FC<Iprops> = ({kanbanId}) => {
         </DragOverlay>
       </DndContext>
 
-      <button
-        className="h-[60px] w-[350px] shrink-0 rounded-lg cursor-pointer bg-slate-400 border-solid border-2 border-slate-500"
-        onClick={createNewList}
-      >
-        Addzzz
-      </button>
+      <CreateList kanbanId={kanbanId} />
     </section>
   );
 };
-
-export const generateId = () => Math.floor(Math.random() * 10001);
 
 
 
