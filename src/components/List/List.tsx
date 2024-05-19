@@ -7,7 +7,7 @@ import { Card } from "@/components/Card";
 import { ListTitle } from "@/components/List";
 
 interface IProps {
-  column: Column;
+  list: Ilist;
   tasks: Task[];
   setTasks: ISetStateFunction<Task[]>;
 }
@@ -15,7 +15,7 @@ interface IProps {
 const generateId = () => Math.floor(Math.random() * 10001);
 
 const List: React.FC<IProps> = (props) => {
-  const { column, tasks, setTasks } = props;
+  const { list, tasks, setTasks } = props;
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
   }, [tasks]);
@@ -27,10 +27,10 @@ const List: React.FC<IProps> = (props) => {
     transition,
     isDragging,
   } = useSortable({
-    id: column.id,
+    id: list.order,
     data: {
-      type: "Column",
-      column: column,
+      type: "List",
+      list: list,
     },
     // disabled:
   });
@@ -42,14 +42,14 @@ const List: React.FC<IProps> = (props) => {
   const addTask = () => {
     const newTask: Task = {
       id: generateId(),
-      columnId: column.id,
-      content: `${column.title}-card-${columnTasks.length + 1}`,
+      columnId: list.order,
+      content: `${list.name}-card-${columnTasks.length + 1}`,
     };
     console.log("newTask = ", newTask);
     setTasks([...tasks, newTask]);
   };
   const columnTasks =
-    tasks?.filter((task) => task.columnId === column.id) || [];
+    tasks?.filter((task) => task.columnId === list.order) || [];
   if (isDragging) {
     return (
       <section
@@ -67,6 +67,7 @@ const List: React.FC<IProps> = (props) => {
       {...listeners}
       className="w-[255px] shrink-0 flex flex-col max-h-fit shadow-md p-3 bg-[#D9D9D9] rounded-md"
     >
+      {list.name}
       <ListTitle />
       <section className="flex-1 flex flex-col gap-2 scrollbar-none overflow-y-auto">
         <SortableContext items={tasksIds}>

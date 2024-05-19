@@ -7,7 +7,7 @@ import {
   EllipsisOutlined,
 } from "@ant-design/icons";
 // component
-import { KanbanCard, CreateKanbanCard } from "./index";
+import { KanbanCard, CreateKanbanCard } from "../Kanban/index";
 
 const { Title } = Typography;
 

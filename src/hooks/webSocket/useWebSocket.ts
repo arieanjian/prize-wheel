@@ -7,7 +7,7 @@ interface IProps {
   queryParams?: IQueryParams; // 連線時的 query params
 }
 // 傳遞給後端的 query params 資料型態 (key-value pair)
-type IQueryParams = { [key: string]: string | number | boolean };
+export type IQueryParams = { [key: string]: string | number | boolean };
 
 // 聲明 useWebSocket 的返回值類型(方便寫 unit test)
 export interface WebSocketState {
@@ -50,17 +50,17 @@ const useWebSocket = (props: IProps): WebSocketState => {
   };
 
   // 解析後端傳來的訊息
-  // const onMessage = (jsonString: string): IlastMessage => {
-  //   if (!message) {
-  //     return {
-  //       status: false,
-  //       message: "webSocket回應錯誤",
-  //       data: null,
-  //     };
-  //   }
-  //   const msg = JSON.parse(message);
+  const onMessage = (jsonString: string): IlastMessage => {
+    if (!jsonString) {
+      return {
+        status: false,
+        message: "webSocket回應錯誤",
+        data: null,
+      };
+    }
+    return JSON.parse(jsonString);
 
-  // };
+  };
 
   useEffect(() => {
     if (!ws) return;
@@ -70,8 +70,8 @@ const useWebSocket = (props: IProps): WebSocketState => {
     };
     ws.onmessage = (event) => {
       console.log(`webSocket接收到後端訊息`);
-      console.log("event.data", event);
-      // const tmpData = onMessage(event.data);
+      const parseData = onMessage(event.data);
+      setLastMessage(parseData);
     };
   }, [ws]);
 
