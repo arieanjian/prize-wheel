@@ -198,4 +198,4 @@ const ListGroup1: React.FC = () => {
 
 export const generateId = () => Math.floor(Math.random() * 10001);
 
-export default ListGroup;
+export default ListGroup1;
