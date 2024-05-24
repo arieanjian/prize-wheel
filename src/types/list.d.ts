@@ -1,11 +1,16 @@
 interface Ilist {
-    _id: string;
-    name: string;
-    order: number;
-    kanbanId: string;
+  id: string;
+  name: string;
+  order: number;
+  kanbanId: string;
 }
 
 interface IaddList {
-    name: string;
-    kanbanId: string;
+  name: string;
+  kanbanId: string;
+}
+
+interface IchangeListOrder {
+  activeListId: string;
+  overListId: string;
 }

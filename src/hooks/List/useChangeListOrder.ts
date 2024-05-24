@@ -3,31 +3,24 @@ import { App } from "antd";
 import instance from "@/service/instance";
 import { useMutation } from "@tanstack/react-query";
 
-interface Iprops {
-  onSuccess: () => void;
-}
-
-const useAddList = ({ onSuccess }: Iprops) => {
+const useChangeListOrder = () => {
   const { message } = App.useApp();
   return useMutation({
-    mutationFn: async (mutation_data: IaddList) => {
+    mutationFn: async (mutation_data: IchangeListOrder) => {
       const res: IapiResponse = await instance.post(
-        "/list/addList",
+        "/list/changeListOrder",
         mutation_data
       );
-      const { data, msg, status } = res;
+      const { msg, status } = res;
 
       if (status === "success") {
         message.success(msg);
-        return data as IauthResponse;
+        return;
       }
 
       message.error(msg);
     },
-    onSuccess: async () => {
-      onSuccess();
-    },
   });
 };
 
-export default useAddList;
+export default useChangeListOrder;

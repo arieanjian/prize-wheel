@@ -12,9 +12,10 @@ interface IProps {
   setTasks: ISetStateFunction<Task[]>;
 }
 
-const generateId = () => Math.floor(Math.random() * 10001);
+// const generateId = () => Math.floor(Math.random() * 10001);
 
 const List: React.FC<IProps> = (props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { list, tasks, setTasks } = props;
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
@@ -27,7 +28,7 @@ const List: React.FC<IProps> = (props) => {
     transition,
     isDragging,
   } = useSortable({
-    id: list.order,
+    id: list.id,
     data: {
       type: "List",
       list: list,
@@ -40,13 +41,13 @@ const List: React.FC<IProps> = (props) => {
     // transform: CSS.Translate.toString(transform),
   };
   const addTask = () => {
-    const newTask: Task = {
-      id: generateId(),
-      columnId: list.order,
-      content: `${list.name}-card-${columnTasks.length + 1}`,
-    };
-    console.log("newTask = ", newTask);
-    setTasks([...tasks, newTask]);
+    alert("wait");
+    // const newTask: Task = {
+    //   columnId: list.order,
+    //   content: `${list.name}-card-${columnTasks.length + 1}`,
+    // };
+    // console.log("newTask = ", newTask);
+    // setTasks([...tasks, newTask]);
   };
   const columnTasks =
     tasks?.filter((task) => task.columnId === list.order) || [];
