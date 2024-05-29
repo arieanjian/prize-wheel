@@ -10,9 +10,34 @@ import {
 } from "@dnd-kit/core";
 import React, { useState } from "react";
 
-const CustDndContext = () => {
+// component
+import { Card } from "@/components/Card";
+import List from "./List";
+// util
+import { arrayMoveWithOrder } from "@/util/kanban";
+// api
+import { useChangeListOrder } from "@/hooks/List";
+
+interface Iprops {
+  children: React.ReactNode;
+  lists: Ilist[];
+  setLists: ISetStateFunction<Ilist[]>;
+  tasks: Task[];
+  setTasks: ISetStateFunction<Task[]>;
+}
+
+const CustDndContext: React.FC<Iprops> = ({
+  lists,
+  setLists,
+  tasks,
+  setTasks,
+  children,
+}) => {
   const [activeList, setActiveList] = useState<Ilist | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+
+  // 變更 list 順序
+  const changeListOrder_mudation = useChangeListOrder();
   const pointerSensor = useSensor(PointerSensor, {
     // Require the mouse to move by 10 pixels before activating
     activationConstraint: {
@@ -32,7 +57,6 @@ const CustDndContext = () => {
     }
   };
   const onDragEnd = (event: DragEndEvent) => {
-    console.log("DragEndEvent = ", event);
     setActiveList(null);
     setActiveTask(null);
 
@@ -40,8 +64,6 @@ const CustDndContext = () => {
       active, // 記錄拖曳開始時的資訊
       over, // 記錄拖曳結束時的資訊
     } = event;
-    console.log("active = ", active);
-    console.log("over = ", over);
     if (!over) return;
 
     // 結束拖曳時放置位置為原點
@@ -55,10 +77,6 @@ const CustDndContext = () => {
     if (active.id === over.id) return;
     // 拖曳 List
     if (activeType === "List" && overType === "List") {
-      // const activeIndex = lists.findIndex((list) => list.order === active.id);
-      // const overIndex = lists.findIndex((list) => list.order === over.id);
-      // setLists(arrayMove(lists, activeIndex, overIndex));
-
       const activeList: Ilist | undefined = lists.find(
         (list) => list.id === active.id
       );
@@ -72,7 +90,7 @@ const CustDndContext = () => {
           overListId: overList.id,
         });
         // 用樂觀更新 list 順序
-        setLists(arrayMove1(lists, activeList.order, overList.order));
+        setLists(arrayMoveWithOrder(lists, activeList.order, overList.order));
       }
     }
   };
@@ -97,33 +115,33 @@ const CustDndContext = () => {
         if (tasks[activeIndex].columnId != tasks[overIndex].columnId) {
           // Fix introduced after video recording
           tasks[activeIndex].columnId = tasks[overIndex].columnId;
-          return arrayMove(tasks, activeIndex, overIndex - 1);
+          return arrayMoveWithOrder(tasks, activeIndex, overIndex - 1);
         }
 
-        return arrayMove(tasks, activeIndex, overIndex);
+        return arrayMoveWithOrder(tasks, activeIndex, overIndex);
       });
     }
 
     const isOverAList = over.data.current?.type === "List";
-    console.log("over.data.current?.type = ", over.data.current?.type);
     // Im dropping a Task over a column
     if (isActiveCard && isOverAList) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        console.log("aaa activeIndex = ", activeIndex);
         tasks[activeIndex].columnId = overId;
-        console.log("DROPPING TASK OVER COLUMN", { activeIndex });
-        return arrayMove(tasks, activeIndex, activeIndex);
+        return arrayMoveWithOrder(tasks, activeIndex, activeIndex);
       });
     }
   };
+
   return (
     <DndContext
+      data-testid="dnd-context"
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       onDragOver={onDragOver}
       sensors={sensors}
     >
+      {children}
       <DragOverlay>
         <div className="rotate-[5deg] flex h-full">
           {activeList && (
@@ -136,7 +154,7 @@ const CustDndContext = () => {
   );
 };
 
-CustDndContext.desplayName = "CustDndContext";
-CustDndContext.prototype = {};
+// CustDndContext.desplayName = "CustDndContext";
+// CustDndContext.prototype = {};
 
 export default CustDndContext;

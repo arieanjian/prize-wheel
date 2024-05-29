@@ -54,6 +54,7 @@ const List: React.FC<IProps> = (props) => {
   if (isDragging) {
     return (
       <section
+        data-testid="list-element"
         ref={setNodeRef}
         style={style}
         className={`w-[255px] shrink-0 flex flex-col max-h-full shadow-md p-3 bg-[#D9D9D9] rounded-md opacity-50`}
@@ -62,14 +63,14 @@ const List: React.FC<IProps> = (props) => {
   }
   return (
     <div
+      data-testid="list-element"
       ref={setNodeRef}
       style={style}
       {...attributes}
       {...listeners}
       className="w-[255px] shrink-0 flex flex-col max-h-fit shadow-md p-3 bg-[#D9D9D9] rounded-md"
     >
-      {list.name}
-      <ListTitle />
+      <ListTitle list={list} />
       <section className="flex-1 flex flex-col gap-2 scrollbar-none overflow-y-auto">
         <SortableContext items={tasksIds}>
           {columnTasks?.map((task) => (
