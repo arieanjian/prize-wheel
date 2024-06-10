@@ -2,6 +2,7 @@ declare const __VERSION__: string;
 
 // style
 import "react-multi-carousel/lib/styles.css";
+import "./testcss.css";
 
 import { App as AntdApp, ConfigProvider } from "antd";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -22,7 +23,6 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   console.log(__VERSION__);
-
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider theme={antdTheme}>

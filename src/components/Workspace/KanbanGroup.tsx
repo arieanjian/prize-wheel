@@ -1,13 +1,14 @@
-import React from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { Typography, Flex, Space } from "antd";
 import {
   ClockCircleOutlined,
-  UserOutlined,
   EllipsisOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 // component
-import { KanbanCard, CreateKanbanCard } from "../Kanban/index";
+import { CreateKanbanCard, KanbanCard } from "../Kanban/index";
+import { Flex, Space, Typography } from "antd";
+
+import React from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const { Title } = Typography;
 

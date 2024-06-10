@@ -1,13 +1,12 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
 // component
 import Bread from "@/components/Bread";
-import PageTitle from "@/components/PageTitle";
 import { ListGroup } from "@/components/List";
+import PageTitle from "@/components/PageTitle";
+import React from "react";
 // API
 import { useKanbans } from "@/hooks/Kanban";
-
+import { useParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Kanban: React.FC = () => {
   const { kanbanId = "" } = useParams();
@@ -20,7 +19,7 @@ const Kanban: React.FC = () => {
   });
   // 透過 URL 取得 現在的看板
   const kanban: Ikanban = queryKanbans.kanbanMap[kanbanId];
-  
+
   if (!kanban) return <div />;
   return (
     <section className="h-full flex flex-col">

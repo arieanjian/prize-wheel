@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 
+import AddCardButton from "@/components/AddCardButton";
 import { CSS } from "@dnd-kit/utilities";
 import { Card } from "@/components/Card";
 // component
@@ -11,12 +12,15 @@ interface IProps {
   tasks: Task[];
   setTasks: ISetStateFunction<Task[]>;
 }
+const Dnd: React.FC<IProps> = (props) => {};
 
-// const generateId = () => Math.floor(Math.random() * 10001);
-
-const List: React.FC<IProps> = (props) => {
+const List: React.FC<IProps> = React.memo((props) => {
+  // console.log("props = ", props);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { list, tasks, setTasks } = props;
+
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
   }, [tasks]);
@@ -33,24 +37,38 @@ const List: React.FC<IProps> = (props) => {
       type: "List",
       list: list,
     },
-    // disabled:
+    disabled: isDisabled,
   });
   const style = {
     transition,
     transform: CSS.Transform.toString(transform),
     // transform: CSS.Translate.toString(transform),
   };
-  const addTask = () => {
-    alert("wait");
-    // const newTask: Task = {
-    //   columnId: list.order,
-    //   content: `${list.name}-card-${columnTasks.length + 1}`,
-    // };
-    // console.log("newTask = ", newTask);
-    // setTasks([...tasks, newTask]);
-  };
+  useEffect(() => {
+    console.log("list render");
+  });
+  useEffect(() => {
+    console.log("list render => list");
+  }, [list]);
+  useEffect(() => {
+    console.log("list render => tasks");
+  }, [tasks]);
+  useEffect(() => {
+    console.log("list render => setTasks");
+  }, [setTasks]);
+  // const addTask = () => {
+  //   alert("wait");
+  //   // const newTask: Task = {
+  //   //   columnId: list.order,
+  //   //   content: `${list.name}-card-${columnTasks.length + 1}`,
+  //   // };
+  //   // console.log("newTask = ", newTask);
+  //   // setTasks([...tasks, newTask]);
+  // };
+
   const columnTasks =
     tasks?.filter((task) => task.columnId === list.order) || [];
+
   if (isDragging) {
     return (
       <section
@@ -68,9 +86,9 @@ const List: React.FC<IProps> = (props) => {
       style={style}
       {...attributes}
       {...listeners}
-      className="w-[255px] shrink-0 flex flex-col max-h-fit shadow-md p-3 bg-[#D9D9D9] rounded-md"
+      className="w-[255px] shrink-0 flex flex-col max-h-fit shadow-md p-3 bg-[#D9D9D9] rounded-md cursor-pointer"
     >
-      <ListTitle list={list} />
+      <ListTitle list={list} setIsDisabled={setIsDisabled} />
       <section className="flex-1 flex flex-col gap-2 scrollbar-none overflow-y-auto">
         <SortableContext items={tasksIds}>
           {columnTasks?.map((task) => (
@@ -78,9 +96,10 @@ const List: React.FC<IProps> = (props) => {
           ))}
         </SortableContext>
       </section>
-      <button onClick={addTask}>add card</button>
+      {/* <button onClick={addTask}>add card</button> */}
+      <AddCardButton listId={list.id} />
     </div>
   );
-};
+});
 
 export default List;

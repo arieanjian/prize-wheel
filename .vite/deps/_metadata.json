@@ -1,104 +1,113 @@
 {
-  "hash": "47c16f31",
-  "browserHash": "cf81b2dc",
+  "hash": "d1fbc94c",
+  "browserHash": "fb8ab861",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "1d5d1d98",
+      "fileHash": "47382795",
       "needsInterop": true
     },
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
-      "fileHash": "ccab4639",
+      "fileHash": "e58def2b",
       "needsInterop": true
     },
     "@ant-design/icons": {
       "src": "../../node_modules/@ant-design/icons/es/index.js",
       "file": "@ant-design_icons.js",
-      "fileHash": "e72b1112",
+      "fileHash": "a60bc36f",
       "needsInterop": false
     },
     "@dnd-kit/core": {
       "src": "../../node_modules/@dnd-kit/core/dist/core.esm.js",
       "file": "@dnd-kit_core.js",
-      "fileHash": "458c594b",
+      "fileHash": "844bedf0",
       "needsInterop": false
     },
     "@dnd-kit/sortable": {
       "src": "../../node_modules/@dnd-kit/sortable/dist/sortable.esm.js",
       "file": "@dnd-kit_sortable.js",
-      "fileHash": "5f70a986",
+      "fileHash": "ac6b894a",
       "needsInterop": false
     },
     "@dnd-kit/utilities": {
       "src": "../../node_modules/@dnd-kit/utilities/dist/utilities.esm.js",
       "file": "@dnd-kit_utilities.js",
-      "fileHash": "750665ee",
+      "fileHash": "cc379f9f",
       "needsInterop": false
     },
     "@tanstack/react-query": {
       "src": "../../node_modules/@tanstack/react-query/build/modern/index.js",
       "file": "@tanstack_react-query.js",
-      "fileHash": "b5155041",
+      "fileHash": "6c2eb1cb",
       "needsInterop": false
     },
     "antd": {
       "src": "../../node_modules/antd/es/index.js",
       "file": "antd.js",
-      "fileHash": "45fcfa6f",
+      "fileHash": "30127b70",
       "needsInterop": false
     },
     "axios": {
       "src": "../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "78dc6391",
+      "fileHash": "c44503cd",
       "needsInterop": false
     },
     "js-cookie": {
       "src": "../../node_modules/js-cookie/dist/js.cookie.mjs",
       "file": "js-cookie.js",
-      "fileHash": "db129679",
+      "fileHash": "57ad2bb3",
       "needsInterop": false
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "942caa04",
+      "fileHash": "86e13855",
       "needsInterop": true
     },
     "react-multi-carousel": {
       "src": "../../node_modules/react-multi-carousel/index.js",
       "file": "react-multi-carousel.js",
-      "fileHash": "d8327642",
+      "fileHash": "d01666be",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.js",
       "file": "react-router-dom.js",
-      "fileHash": "5cc18619",
+      "fileHash": "82c76780",
       "needsInterop": false
+    },
+    "@ant-design/icons/lib/icons": {
+      "src": "../../node_modules/@ant-design/icons/lib/icons/index.js",
+      "file": "@ant-design_icons_lib_icons.js",
+      "fileHash": "e3b7906a",
+      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-QTLGDL3B": {
-      "file": "chunk-QTLGDL3B.js"
+    "chunk-NSJJSUNA": {
+      "file": "chunk-NSJJSUNA.js"
     },
-    "chunk-BZPCZCI5": {
-      "file": "chunk-BZPCZCI5.js"
+    "chunk-PPQSEC5G": {
+      "file": "chunk-PPQSEC5G.js"
     },
-    "chunk-5DRZSNK6": {
-      "file": "chunk-5DRZSNK6.js"
+    "chunk-STURWFGH": {
+      "file": "chunk-STURWFGH.js"
     },
-    "chunk-JKRHIO6T": {
-      "file": "chunk-JKRHIO6T.js"
+    "chunk-5JBBFWSC": {
+      "file": "chunk-5JBBFWSC.js"
     },
-    "chunk-P4SDTMBK": {
-      "file": "chunk-P4SDTMBK.js"
+    "chunk-MCSL5KUY": {
+      "file": "chunk-MCSL5KUY.js"
     },
-    "chunk-F3IJBAHG": {
-      "file": "chunk-F3IJBAHG.js"
+    "chunk-UM2VXT6X": {
+      "file": "chunk-UM2VXT6X.js"
+    },
+    "chunk-TITDT5VP": {
+      "file": "chunk-TITDT5VP.js"
     }
   }
 }

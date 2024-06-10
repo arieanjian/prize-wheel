@@ -40,6 +40,10 @@ const ListGroup: React.FC<Iprops> = ({ kanbanId }) => {
     // };
   }, []);
 
+  useEffect(() => {
+    console.log("render by tasks");
+  }, [tasks]);
+
   // 監聽後端傳來的 socket 訊息
   useEffect(() => {
     if (!call_listSocket.lastMessage) return;
@@ -57,9 +61,26 @@ const ListGroup: React.FC<Iprops> = ({ kanbanId }) => {
   }, [call_listSocket.lastMessage]);
 
   const listIds = useMemo(() => {
+    console.log("useMemo => listIds");
     return lists.map((list) => list.id);
   }, [lists]);
 
+  // const listsArr = useMemo(() => {
+  //   console.log("useMemo => listsArr");
+  //   return (
+  //     <SortableContext items={listIds}>
+  //       {lists.map((list, i) => (
+  //         <List key={i} list={list} tasks={tasks} setTasks={setTasks} />
+  //       ))}
+  //     </SortableContext>
+  //   );
+  // }, [lists, tasks, listIds]);
+
+  useEffect(() => {
+    console.log("listGroup render");
+  });
+
+  console.log("lists = ", lists);
   return (
     <section className="flex-1 flex gap-4 mb-2 min-w-full overflow-auto">
       <CustDndContext

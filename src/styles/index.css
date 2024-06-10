@@ -34,6 +34,11 @@ h5 {
   scrollbar-width: none; /* Firefox */
 }
 
+.cardModal > .ant-modal-content,
+.cardModal .ant-modal-header {
+  background-color: rgb(245, 245, 245);
+}
+
 @layer components {
   .flex-center {
     @apply flex items-center justify-center gap-1;
