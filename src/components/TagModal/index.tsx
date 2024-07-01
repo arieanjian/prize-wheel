@@ -4,17 +4,17 @@ import React from "react";
 import TagModal from "./TagModal";
 
 interface IProps {
-  kanbanId: string;
   tag?: Itag;
+  kanbanId: string;
   showTagModal: boolean;
   setShowTagModal: ISetStateFunction<boolean>;
 }
 
 const Index: React.FC<IProps> = ({
-  kanbanId,
   showTagModal,
   setShowTagModal,
   tag,
+  kanbanId,
 }) => {
   // 目前是否為編輯模式
   const type = tag === undefined ? "Create" : "Edit";

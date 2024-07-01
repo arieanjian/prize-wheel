@@ -10,6 +10,6 @@ type IchangeListName = Pick<Ilist, "id" | "name">;
 type IaddList = Pick<Ilist, "name" | "kanbanId">;
 
 interface IchangeListOrder {
-  activeListId: string;
-  overListId: string;
+  activeList: Ilist;
+  newOrder: number;
 }

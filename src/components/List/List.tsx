@@ -1,61 +1,30 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import React, { useMemo } from "react";
 
 import AddCardButton from "@/components/AddCardButton";
-import { CSS } from "@dnd-kit/utilities";
 import { Card } from "@/components/Card";
 // component
 import { ListTitle } from "@/components/List";
+import { SortableContext } from "@dnd-kit/sortable";
 
 interface IProps {
   list: Ilist;
+  setIsDndDisabled?: ISetStateFunction<boolean>;
   tasks: Task[];
   setTasks: ISetStateFunction<Task[]>;
 }
-const Dnd: React.FC<IProps> = (props) => {};
 
-const List: React.FC<IProps> = React.memo((props) => {
+const List: React.FC<IProps> = (props) => {
   // console.log("props = ", props);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { list, tasks, setTasks } = props;
-
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const { list, tasks, setTasks, setIsDndDisabled = () => {} } = props;
 
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
   }, [tasks]);
-  const {
-    setNodeRef,
-    attributes,
-    listeners,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
-    id: list.id,
-    data: {
-      type: "List",
-      list: list,
-    },
-    disabled: isDisabled,
-  });
-  const style = {
-    transition,
-    transform: CSS.Transform.toString(transform),
-    // transform: CSS.Translate.toString(transform),
-  };
-  useEffect(() => {
-    console.log("list render");
-  });
-  useEffect(() => {
-    console.log("list render => list");
-  }, [list]);
-  useEffect(() => {
-    console.log("list render => tasks");
-  }, [tasks]);
-  useEffect(() => {
-    console.log("list render => setTasks");
-  }, [setTasks]);
+
+  // useEffect(() => {
+  //   console.log("list render");
+  // });
   // const addTask = () => {
   //   alert("wait");
   //   // const newTask: Task = {
@@ -65,30 +34,13 @@ const List: React.FC<IProps> = React.memo((props) => {
   //   // console.log("newTask = ", newTask);
   //   // setTasks([...tasks, newTask]);
   // };
+  const columnTasks = useMemo(() => {
+    return tasks.filter((task) => task.columnId === list.id);
+  }, [tasks, list.id]);
 
-  const columnTasks =
-    tasks?.filter((task) => task.columnId === list.order) || [];
-
-  if (isDragging) {
-    return (
-      <section
-        data-testid="list-element"
-        ref={setNodeRef}
-        style={style}
-        className={`w-[255px] shrink-0 flex flex-col max-h-full shadow-md p-3 bg-[#D9D9D9] rounded-md opacity-50`}
-      />
-    );
-  }
   return (
-    <div
-      data-testid="list-element"
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className="w-[255px] shrink-0 flex flex-col max-h-fit shadow-md p-3 bg-[#D9D9D9] rounded-md cursor-pointer"
-    >
-      <ListTitle list={list} setIsDisabled={setIsDisabled} />
+    <div className="h-full w-[255px] flex flex-col rounded-md cursor-pointer p-3 bg-[#D9D9D9] max-h-fit">
+      <ListTitle list={list} setIsDndDisabled={setIsDndDisabled} />
       <section className="flex-1 flex flex-col gap-2 scrollbar-none overflow-y-auto">
         <SortableContext items={tasksIds}>
           {columnTasks?.map((task) => (
@@ -97,9 +49,9 @@ const List: React.FC<IProps> = React.memo((props) => {
         </SortableContext>
       </section>
       {/* <button onClick={addTask}>add card</button> */}
-      <AddCardButton listId={list.id} />
+      <AddCardButton listId={list.id} setIsDndDisabled={setIsDndDisabled} />
     </div>
   );
-});
+};
 
 export default List;

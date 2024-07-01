@@ -9,9 +9,15 @@ interface IProps {
   card?: Icard;
   isShowModal: boolean;
   setIsShowModal: ISetStateFunction<boolean>;
+  setIsDndDisabled: ISetStateFunction<boolean>;
 }
 
-const Index: React.FC<IProps> = ({ isShowModal, setIsShowModal, card }) => {
+const Index: React.FC<IProps> = ({
+  isShowModal,
+  setIsShowModal,
+  card,
+  setIsDndDisabled,
+}) => {
   // antd 用來監聽畫面寬度變化
   const screens: Record<string, boolean> = Grid.useBreakpoint();
   // 目前是否為編輯模式
@@ -64,6 +70,7 @@ const Index: React.FC<IProps> = ({ isShowModal, setIsShowModal, card }) => {
       footer={null}
       maskClosable={false}
       destroyOnClose
+      afterClose={() => setIsDndDisabled(false)}
     >
       <CardModal
         closeCardModal={closeCardModal}

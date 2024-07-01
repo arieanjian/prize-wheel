@@ -1,113 +1,104 @@
 {
-  "hash": "d1fbc94c",
-  "browserHash": "fb8ab861",
+  "hash": "f8a7c1e4",
+  "browserHash": "8b3a2ac7",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "47382795",
+      "fileHash": "cab8181f",
       "needsInterop": true
     },
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
-      "fileHash": "e58def2b",
+      "fileHash": "dad82181",
       "needsInterop": true
     },
     "@ant-design/icons": {
       "src": "../../node_modules/@ant-design/icons/es/index.js",
       "file": "@ant-design_icons.js",
-      "fileHash": "a60bc36f",
+      "fileHash": "8df1071c",
       "needsInterop": false
     },
     "@dnd-kit/core": {
       "src": "../../node_modules/@dnd-kit/core/dist/core.esm.js",
       "file": "@dnd-kit_core.js",
-      "fileHash": "844bedf0",
+      "fileHash": "31b766fc",
       "needsInterop": false
     },
     "@dnd-kit/sortable": {
       "src": "../../node_modules/@dnd-kit/sortable/dist/sortable.esm.js",
       "file": "@dnd-kit_sortable.js",
-      "fileHash": "ac6b894a",
+      "fileHash": "cda0eaf4",
       "needsInterop": false
     },
     "@dnd-kit/utilities": {
       "src": "../../node_modules/@dnd-kit/utilities/dist/utilities.esm.js",
       "file": "@dnd-kit_utilities.js",
-      "fileHash": "cc379f9f",
+      "fileHash": "c8bbe7dc",
       "needsInterop": false
     },
     "@tanstack/react-query": {
       "src": "../../node_modules/@tanstack/react-query/build/modern/index.js",
       "file": "@tanstack_react-query.js",
-      "fileHash": "6c2eb1cb",
+      "fileHash": "7b5cd9d2",
       "needsInterop": false
     },
     "antd": {
       "src": "../../node_modules/antd/es/index.js",
       "file": "antd.js",
-      "fileHash": "30127b70",
+      "fileHash": "e48bd1a4",
       "needsInterop": false
     },
     "axios": {
       "src": "../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "c44503cd",
+      "fileHash": "1f76fd68",
       "needsInterop": false
     },
     "js-cookie": {
       "src": "../../node_modules/js-cookie/dist/js.cookie.mjs",
       "file": "js-cookie.js",
-      "fileHash": "57ad2bb3",
+      "fileHash": "e4962635",
       "needsInterop": false
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "86e13855",
+      "fileHash": "29bdc6d4",
       "needsInterop": true
     },
     "react-multi-carousel": {
       "src": "../../node_modules/react-multi-carousel/index.js",
       "file": "react-multi-carousel.js",
-      "fileHash": "d01666be",
+      "fileHash": "8987e388",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.js",
       "file": "react-router-dom.js",
-      "fileHash": "82c76780",
+      "fileHash": "dcd7a3ed",
       "needsInterop": false
-    },
-    "@ant-design/icons/lib/icons": {
-      "src": "../../node_modules/@ant-design/icons/lib/icons/index.js",
-      "file": "@ant-design_icons_lib_icons.js",
-      "fileHash": "e3b7906a",
-      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-NSJJSUNA": {
-      "file": "chunk-NSJJSUNA.js"
+    "chunk-UC2URYEX": {
+      "file": "chunk-UC2URYEX.js"
     },
-    "chunk-PPQSEC5G": {
-      "file": "chunk-PPQSEC5G.js"
+    "chunk-QTLGDL3B": {
+      "file": "chunk-QTLGDL3B.js"
     },
-    "chunk-STURWFGH": {
-      "file": "chunk-STURWFGH.js"
+    "chunk-BZPCZCI5": {
+      "file": "chunk-BZPCZCI5.js"
     },
-    "chunk-5JBBFWSC": {
-      "file": "chunk-5JBBFWSC.js"
+    "chunk-JKRHIO6T": {
+      "file": "chunk-JKRHIO6T.js"
     },
-    "chunk-MCSL5KUY": {
-      "file": "chunk-MCSL5KUY.js"
+    "chunk-P4SDTMBK": {
+      "file": "chunk-P4SDTMBK.js"
     },
-    "chunk-UM2VXT6X": {
-      "file": "chunk-UM2VXT6X.js"
-    },
-    "chunk-TITDT5VP": {
-      "file": "chunk-TITDT5VP.js"
+    "chunk-F3IJBAHG": {
+      "file": "chunk-F3IJBAHG.js"
     }
   }
 }

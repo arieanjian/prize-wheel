@@ -20,6 +20,8 @@ const CardModal: React.FC<IProps> = ({
 }) => {
   const [form] = Form.useForm();
 
+  console.log("card render");
+
   const onSubmit = (values: Icard) => {
     console.log("values = ", values);
   };

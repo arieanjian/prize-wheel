@@ -8,6 +8,11 @@ interface Ikanban {
 
 type IkanbanMap = Record<string, Ikanban>;
 
+interface IkanbanContext {
+  tags: Itag[];
+  setTags: ISetStateFunction<Itag[]>;
+}
+
 interface IqueryKanbans {
   kanbans: Ikanban[];
   kanbanMap: IkanbanMap;

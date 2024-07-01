@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // util
 import { IQueryParams, useWebSocket } from "@/hooks/webSocket";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import CreateList from "./CreateList";
 // component
 import CustDndContext from "./CustDndContext";
-import List from "./List";
+import CustUseSortable from "./CustUseSortable";
+import { KanbanContext } from "@/pages/Kanban";
+// import List from "./List";
 import { SortableContext } from "@dnd-kit/sortable";
 import { message } from "antd";
 
@@ -19,9 +21,10 @@ interface Iprops {
 }
 
 const ListGroup: React.FC<Iprops> = ({ kanbanId }) => {
+  const { tags, setTags } = useContext(KanbanContext);
   const [lists, setLists] = useState<Ilist[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
-
+  console.log("tags = ", tags);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [socketProps, setSocketProps] = useState<IParams>({
     kanbanId: kanbanId,
@@ -31,18 +34,20 @@ const ListGroup: React.FC<Iprops> = ({ kanbanId }) => {
     url: `ws://localhost:8080/list`,
     queryParams: socketProps,
   });
+  // websocket 取得 tag
+  const call_tagSocket = useWebSocket({
+    url: `ws://localhost:8080/tag`,
+    queryParams: socketProps,
+  });
 
   // 第一次進入頁面時，建立 WebSocket 連線
   useEffect(() => {
     call_listSocket.createSocket();
+    call_tagSocket.createSocket();
     // return () => {
     //   call_kanbanSocket.closeSocket();
     // };
   }, []);
-
-  useEffect(() => {
-    console.log("render by tasks");
-  }, [tasks]);
 
   // 監聽後端傳來的 socket 訊息
   useEffect(() => {
@@ -60,27 +65,25 @@ const ListGroup: React.FC<Iprops> = ({ kanbanId }) => {
     }
   }, [call_listSocket.lastMessage]);
 
+  // 監聽後端傳來的 socket 訊息
+  useEffect(() => {
+    if (!call_tagSocket.lastMessage) return;
+    const { data, status, msg } = call_tagSocket.lastMessage;
+    if (status) {
+      setTags(data);
+    }
+    if (!status) {
+      message.error(msg);
+      setTags([]);
+    }
+  }, [call_tagSocket.lastMessage]);
+
   const listIds = useMemo(() => {
-    console.log("useMemo => listIds");
     return lists.map((list) => list.id);
   }, [lists]);
 
-  // const listsArr = useMemo(() => {
-  //   console.log("useMemo => listsArr");
-  //   return (
-  //     <SortableContext items={listIds}>
-  //       {lists.map((list, i) => (
-  //         <List key={i} list={list} tasks={tasks} setTasks={setTasks} />
-  //       ))}
-  //     </SortableContext>
-  //   );
-  // }, [lists, tasks, listIds]);
-
-  useEffect(() => {
-    console.log("listGroup render");
-  });
-
-  console.log("lists = ", lists);
+  // console.log("lists = ", lists);
+  // console.log("listIds = ", listIds);
   return (
     <section className="flex-1 flex gap-4 mb-2 min-w-full overflow-auto">
       <CustDndContext
@@ -91,8 +94,8 @@ const ListGroup: React.FC<Iprops> = ({ kanbanId }) => {
       >
         <SortableContext items={listIds}>
           {lists.map((list) => (
-            <List
-              key={list.order}
+            <CustUseSortable
+              key={list.id}
               list={list}
               tasks={tasks}
               setTasks={setTasks}

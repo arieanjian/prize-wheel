@@ -1,7 +1,3 @@
-import * as AntdIcons from "@ant-design/icons/lib/icons";
-
-const all = Object.keys(AntdIcons);
-
 const direction = [
   "StepBackward",
   "StepForward",
@@ -178,8 +174,8 @@ const logo = [
   "Dropbox",
   "Facebook",
   "Codepen",
-  "CodeSandbox",
-  "CodeSandboxCircle",
+  // "CodeSandbox",
+  // "CodeSandboxCircle",
   "Amazon",
   "Google",
   "CodepenCircle",
@@ -223,4 +219,5 @@ const logo = [
 
 const allTagName = [...direction, ...suggestion, ...editor, ...data, ...logo];
 
-export default allTagName;
+const allTagNameSet = allTagName.map((tag) => tag + "Outlined");
+export default allTagNameSet;

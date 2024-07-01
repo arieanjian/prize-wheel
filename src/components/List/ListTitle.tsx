@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 
 interface IProps {
   list: Ilist;
-  setIsDisabled: ISetStateFunction<boolean>;
+  setIsDndDisabled: ISetStateFunction<boolean>;
 }
 type InputEvent =
   | React.KeyboardEvent<HTMLInputElement>
@@ -17,7 +17,7 @@ type InputEvent =
 
 type KeyboardEvent = React.KeyboardEvent<HTMLInputElement>;
 
-const ListTitle: React.FC<IProps> = ({ list, setIsDisabled }) => {
+const ListTitle: React.FC<IProps> = ({ list, setIsDndDisabled }) => {
   // 改變 list 名稱
   const { mutate } = useChangeListName();
   // 是否編輯 list 名稱
@@ -32,7 +32,7 @@ const ListTitle: React.FC<IProps> = ({ list, setIsDisabled }) => {
     }
     // 結束編輯
     setIsEdit(false);
-    setIsDisabled(false);
+    setIsDndDisabled(false);
     // 如果 list 名稱不一樣，則更新名稱
     if (listName !== list.name) {
       mutate({ id: list.id, name: listName });
@@ -66,7 +66,7 @@ const ListTitle: React.FC<IProps> = ({ list, setIsDisabled }) => {
             className="flex-1 cursor-pointer"
             onClick={() => {
               setIsEdit(true);
-              setIsDisabled(true);
+              setIsDndDisabled(true);
             }}
           >
             {listName}
