@@ -1,59 +1,53 @@
 {
-  "hash": "13208e74",
-  "browserHash": "084329c5",
+  "hash": "71dec94d",
+  "browserHash": "bf51cef2",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "849263dd",
+      "fileHash": "baaed85f",
       "needsInterop": true
     },
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
-      "fileHash": "a93ac9f1",
+      "fileHash": "8d91d6d5",
       "needsInterop": true
-    },
-    "@ant-design/icons": {
-      "src": "../../node_modules/@ant-design/icons/es/index.js",
-      "file": "@ant-design_icons.js",
-      "fileHash": "093ab9c1",
-      "needsInterop": false
-    },
-    "antd": {
-      "src": "../../node_modules/antd/es/index.js",
-      "file": "antd.js",
-      "fileHash": "f899f0eb",
-      "needsInterop": false
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "3349e3fd",
+      "fileHash": "d5b8d55f",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.js",
       "file": "react-router-dom.js",
-      "fileHash": "f89606cc",
+      "fileHash": "9183964e",
       "needsInterop": false
     },
-    "react-multi-carousel": {
-      "src": "../../node_modules/react-multi-carousel/index.js",
-      "file": "react-multi-carousel.js",
-      "fileHash": "0d8c29ef",
-      "needsInterop": true
+    "three": {
+      "src": "../../../../../node_modules/three/build/three.module.js",
+      "file": "three.js",
+      "fileHash": "484f3ca1",
+      "needsInterop": false
+    },
+    "antd": {
+      "src": "../../node_modules/antd/es/index.js",
+      "file": "antd.js",
+      "fileHash": "af631d91",
+      "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-4CM577PA": {
-      "file": "chunk-4CM577PA.js"
+    "chunk-DZXRV6RW": {
+      "file": "chunk-DZXRV6RW.js"
     },
-    "chunk-MDIHFEFG": {
-      "file": "chunk-MDIHFEFG.js"
+    "chunk-ZAUFE7H7": {
+      "file": "chunk-ZAUFE7H7.js"
     },
-    "chunk-L7APZED3": {
-      "file": "chunk-L7APZED3.js"
+    "chunk-UXIASGQL": {
+      "file": "chunk-UXIASGQL.js"
     }
   }
 }

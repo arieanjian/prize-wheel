@@ -8,15 +8,19 @@ body,
   height: 100vh;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0px;
+}
+
 @font-face {
   font-family: "Segoe Script";
   src: url("/src/assets/fonts/SegoeScript.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-}
-
-.btn-dark .ant-btn:not(:disabled):focus-visible {
-  outline: 4px solid green;
 }
 
 /* for Chrome, Safari and Opera */
@@ -28,6 +32,20 @@ body,
 .navbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+.cardModal > .ant-modal-content,
+.cardModal .ant-modal-header {
+  background-color: rgb(245, 245, 245);
+}
+
+.tagModal .ant-modal-header {
+  background-color: rgb(245, 245, 245);
+  padding: 12px 12px 0px 12px;
+}
+.tagModal .ant-modal-content {
+  padding: 6px;
+  background-color: rgb(245, 245, 245);
 }
 
 @layer components {
